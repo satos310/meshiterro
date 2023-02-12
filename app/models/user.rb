@@ -3,11 +3,14 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-         
+
+  # UserモデルにPostImageモデルの関連付け（1:N）　dependent: :destroy  => 1が削除→Nも全て削除
   has_many :post_images, dependent: :destroy
-  
+  # UserモデルにPostCommentモデルの関連付け（1:N）
+  has_many :post_comments, dependent: :destroy
+  # ActiveStrageをprofile_imageに設定
   has_one_attached :profile_image
-  
+
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/sample-author1.jpg')
