@@ -4,10 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # UserモデルにPostImageモデルの関連付け（1:N）　dependent: :destroy  => 1が削除→Nも全て削除
+  # UserモデルにPostImageモデルを関連付け（1:N）　dependent: :destroy  => 1が削除→Nも全て削除
   has_many :post_images, dependent: :destroy
-  # UserモデルにPostCommentモデルの関連付け（1:N）
+  # UserモデルにPostCommentモデルを関連付け（1:N）
   has_many :post_comments, dependent: :destroy
+  # UserモデルにFavoriteモデルを関連付け
+  has_many :favorites, dependent: :destroy
   # ActiveStrageをprofile_imageに設定
   has_one_attached :profile_image
 
